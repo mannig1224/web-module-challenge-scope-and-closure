@@ -83,15 +83,18 @@ Use the finalScore function below to do the following:
 */ 
 
 function finalScore(inning, gamesPlayed){
-  /*Code Here*/
+  // Declare variable to keep track of scores
   let home = 0;
   let away = 0;
+
   for(let i = 0; i < gamesPlayed; i++) {
+    // Keep adding current gamesPlayed to the final score
      home = home + inning();
      away = away + inning();
      
   }
-  let final = {Home:home, Away:away};
+  // create final object with the final scores 
+  let final = { Home:home, Away:away };
   return final;
   
 }
@@ -102,14 +105,14 @@ Use the getInningScore() function below to do the following:
   2. Return an object with a score for home and a score for away that populates from invoking the inning callback function */
 
 function getInningScore(inning) {
-  /*Your Code Here */
+  
   let score = {
     Home: inning(),
     Away: inning()
   }
   return score;
 }
-console.log("Task 4: ", getInningScore(inning));
+
 
 /* ⚾️⚾️⚾️ Task 5: scoreboard() ⚾️⚾️⚾️
 Use the scoreboard function below to do the following:
@@ -153,9 +156,12 @@ Use the scoreboard function below to do the following:
   */
 
 function scoreboard(getInningScore, inning, gamesPlayed) {
+  // declare variables
   let score = [];
   let homeFinal = 0;
   let awayFinal = 0;
+
+  // play the game as many times as gamesplayed dictates. display each game and also keep track of the total score.
   for(let i = 0; i < gamesPlayed; i++) {
      let currentInning = getInningScore(inning);
      homeFinal = homeFinal + currentInning.Home;
