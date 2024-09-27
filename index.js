@@ -28,12 +28,12 @@ console.log(processFirstItem(['foo','bar'],function(str){return str+str}));
   Study the code for counter1 and counter2, then answer the questions below.
   
   1. What is the difference between counter1 and counter2?
-  
+    counter 1 is a closure and counter two is a normal function.
   2. Which of the two uses a closure? How can you tell?
-  
+    counter 1
   3. In what scenario would the counter1 code be preferable? In what scenario would 
-     counter2 be better?  
-*/
+     counter2 be better?  if we wanted to make multiple counters, without declaring a global count variable
+*/ 
 
 // counter1 code
 function counterMaker() {
@@ -64,6 +64,7 @@ NOTE: This will be a callback function for the tasks below
 
 function inning(/*Code Here*/){
     /*Code Here*/
+    return (Math.floor(Math.random() * 3));
 }
 
 
@@ -81,8 +82,21 @@ Use the finalScore function below to do the following:
 }
 */ 
 
-function finalScore(/*code Here*/){
-  /*Code Here*/
+function finalScore(inning, gamesPlayed){
+  // Declare variable to keep track of scores
+  let home = 0;
+  let away = 0;
+
+  for(let i = 0; i < gamesPlayed; i++) {
+    // Keep adding current gamesPlayed to the final score
+     home = home + inning();
+     away = away + inning();
+     
+  }
+  // create final object with the final scores 
+  let final = { Home:home, Away:away };
+  return final;
+  
 }
 
 /* ⚾️⚾️⚾️ Task 4: getInningScore() ⚾️⚾️⚾️
@@ -90,8 +104,13 @@ Use the getInningScore() function below to do the following:
   1. Receive a callback function - you will pass in the inning function from task 2 as your argument 
   2. Return an object with a score for home and a score for away that populates from invoking the inning callback function */
 
-function getInningScore(/*Your Code Here */) {
-  /*Your Code Here */
+function getInningScore(inning) {
+  
+  let score = {
+    Home: inning(),
+    Away: inning()
+  }
+  return score;
 }
 
 
@@ -136,9 +155,31 @@ Use the scoreboard function below to do the following:
 ]  
   */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(getInningScore, inning, gamesPlayed) {
+  // declare variables
+  let score = [];
+  let homeFinal = 0;
+  let awayFinal = 0;
+
+  // play the game as many times as gamesplayed dictates. display each game and also keep track of the total score.
+  for(let i = 0; i < gamesPlayed; i++) {
+     let currentInning = getInningScore(inning);
+     homeFinal = homeFinal + currentInning.Home;
+     awayFinal = awayFinal + currentInning.Away;
+     score.push(`Inning ${i + 1}: Away ${currentInning.Away} - Home ${currentInning.Home}`);
+     
+  }
+  if (homeFinal === awayFinal) {
+    score.push(`This game will require extra innings: Away ${awayFinal} - Home ${homeFinal}`);
+    return score;
+  } else {
+    score.push(`Final Score: Away ${awayFinal} - Home ${homeFinal}`);
+    return score;
+  }
+  
 }
+console.log(scoreboard(getInningScore, inning, 9));
+
 
 
 
